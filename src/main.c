@@ -7,6 +7,7 @@
 
 uint8_t current_difficulty = 1;
 // bool last_opt = 1;
+int remain = 8;
 
 void Inp_init(void)
 {
@@ -177,8 +178,7 @@ int main(void) {
   
   IO_init();
   LCD_Clear(BLACK);
-  // SplashScreen();
- 
+
   draw();
   // LCD_ShowPicture(0, 0, 80, 150);
 
@@ -218,7 +218,8 @@ int main(void) {
     start_time = get_timer_value();
 
     if (Get_Button(JOY_RIGHT) || Get_Button(JOY_CTR) || Get_Button(JOY_LEFT) || Get_Button(JOY_UP) || Get_Button(JOY_DOWN) || Get_Button(BUTTON_1) || Get_Button(BUTTON_2)) {
-      offset -= 8;
+      offset -= 4;
+      remain = 4;
       para = 1;
     }
     
@@ -280,23 +281,27 @@ int main(void) {
       score++;
     }
 
-    offset = offset + para / 4;
+    offset = offset + para / 4 - remain;
     para++;
     
     
     num++;
-    if(num == 71){
+    if(numset(num)){
       num = 0;
       headwall = rand() % 35 + 50;
     }
     delay_1ms(5);
     
-    LCD_DrawPoint(30, 95 + offset - (para-1) / 4 , 0);
+    LCD_DrawPoint(30, 95 + offset - (para-1) / 4 + remain , 0);
     
     if(offset > 54 || offset < -54){
       offset = 0;
       para = 1;
       if(current_difficulty != 4) hp--;
+    }
+
+    if(remain > 0){
+      remain--;
     }
 
     end_time = get_timer_value();

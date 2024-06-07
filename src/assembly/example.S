@@ -4,8 +4,21 @@ string_completed: .asciz "Success!"
 
 .section .text
 .globl draw
+.globl numset
 
 .type draw, @function
+.type numset, @function
+
+numset:
+    li t0, 71         
+    beq a0, t0, is_71  
+    li a0, 0           
+    ret                
+
+is_71:
+    li a0, 1           
+    ret                
+
 
 draw:
 

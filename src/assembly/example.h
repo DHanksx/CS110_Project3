@@ -8,4 +8,6 @@
 
 void SplashScreen();
 void draw();
+int numset(int num);
+
 #endif // LAB12_STARTER_EXAMPLE_H
